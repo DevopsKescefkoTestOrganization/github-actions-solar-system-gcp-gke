@@ -138,14 +138,20 @@ jobs:
             version: 'v1.26.0'
 
         # GKE context in GCP
-        - id: 'auth'
-          name: 'Obtain access token by using workload identity federation'
-          uses: 'google-github-actions/auth@v0'
+        - name: Authenticate to Google Cloud
+          uses: google-github-actions/auth@v1
           with:
-            create_credentials_file: true
             token_format: access_token
-            workload_identity_provider: projects/${{ env.PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-actions/providers/github-actions-oidc
-            service_account: github-actions-workflow@${{ env.PROJECT_ID }}.iam.gserviceaccount.com
+            create_credentials_file: true
+            workload_identity_provider: projects/48311044267/locations/global/workloadIdentityPools/github-actions-2/providers/github-actions-oidc-2
+            service_account: github-actions-workflow-2@stone-column-459311-v2.iam.gserviceaccount.com
+            export_environment_variables: true
+            cleanup_credentials: true
+            access_token_lifetime: 3600s
+            access_token_scopes: https://www.googleapis.com/auth/cloud-platform
+            retries: 3
+            backoff: 250
+            id_token_include_email: false
 
         - name: Connect to GKE
           uses: google-github-actions/get-gke-credentials@v0
