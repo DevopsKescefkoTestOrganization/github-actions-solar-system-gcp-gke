@@ -1,6 +1,5 @@
 
 name: Solar System Workflow
-# testing
 
 on: 
   workflow_dispatch:
